@@ -10,6 +10,7 @@ module API
         total_count = Delayed::Job.count
         if total_count > 0
           return render json: { count: total_count, oldest: Delayed::Job.order(:created_at).first.created_at }
+        end
         render json: { msg: 'No delayed jobs found' }
       end
 
