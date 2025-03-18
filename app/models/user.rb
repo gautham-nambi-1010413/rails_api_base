@@ -57,6 +57,7 @@ class User < ApplicationRecord
 
   def full_name
     return username if first_name.blank?
+    return email if first_name.blank? && last_name.blank?
 
     "#{first_name} #{last_name}"
   end
