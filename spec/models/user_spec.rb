@@ -62,6 +62,32 @@ describe User do
     end
   end
 
+  context 'when first_name, last_name and email are blank' do
+    let(:user) { build_stubbed(:user, first_name: '', last_name: '', email: nil, username: 'testuser') }
+
+    it 'returns the username' do
+      expect(user.full_name).to eq(user.username)
+    end
+  end
+
+  # [Tusk] FAILING TEST
+  context 'when first_name and last_name are blank' do
+    let!(:user) { create(:user, first_name: '', last_name: '', username: '') }
+
+    it 'returns the user\'s email' do
+      expect(user.full_name).to eq(user.email)
+    end
+  end
+
+  # [Tusk] FAILING TEST
+  context 'when first_name contains only whitespace and last_name is blank' do
+    let!(:user) { create(:user, first_name: '   ', last_name: '') }
+
+    it 'returns the user\'s email' do
+      expect(user.full_name).to eq(user.email)
+    end
+  end
+
   describe '.from_social_provider' do
     context 'when user does not exists' do
       let(:params) { attributes_for(:user) }
