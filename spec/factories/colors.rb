@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :color do
-    user { nil }
-    color_code { "MyString" }
+    association :user
+    color_code { '#FF0000' }
   end
 end
