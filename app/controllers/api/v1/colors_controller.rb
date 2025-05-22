@@ -1,6 +1,7 @@
 module Api
   module V1
-    class ColorsController < ApplicationController
+    class ColorsController < API::V1::APIController
+      include API::Concerns::ActAsAPIRequest
       before_action :authenticate_user!
       before_action :set_color, only: [:destroy]
 
