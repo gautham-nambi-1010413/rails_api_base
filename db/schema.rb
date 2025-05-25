@@ -124,5 +124,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_01_09_165800) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "colors", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "color_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_colors_on_user_id"
+  end
+
+  add_foreign_key "colors", "users"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
 end
