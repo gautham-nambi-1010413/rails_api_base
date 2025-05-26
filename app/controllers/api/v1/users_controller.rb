@@ -16,8 +16,7 @@ module API
       private
 
       def update_user_params
-        # [UseTusk] generate unit tests
-        params.expect(user: %i[first_name last_name email])
+        params.expect(user: %i[first_name last_name email, { user_roles_attributes: [:id, :role_id, :_destroy] } ])
       end
     end
   end
