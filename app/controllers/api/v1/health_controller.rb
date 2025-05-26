@@ -12,10 +12,9 @@ module API
 
           if response.code == 200
             response_data = JSON.parse(response.body)
-            first_item = response_data.first
 
-            if first_item && first_item.key?('id') && first_item.key?('name') && first_item.key?('data')
-              render json: { count: Delayed::Job.count }
+            if response_data.all? { |item| item.key?('id') && item.key?('name') && item.key?('data') }
+              render json: response_data
             else
               render json: { error: 'Invalid response format' }, status: :bad_request
             end
