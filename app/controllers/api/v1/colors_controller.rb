@@ -1,4 +1,6 @@
-module Api
+# frozen_string_literal: true
+
+module API
   module V1
     class ColorsController < API::V1::APIController
       include API::Concerns::ActAsAPIRequest
