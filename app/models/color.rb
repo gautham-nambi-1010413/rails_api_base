@@ -19,7 +19,7 @@
 class Color < ApplicationRecord
   belongs_to :user
 
-  validates :color_code
+  validates :color_code, presence: true
   validate :valid_color_code_format
 
   before_validation :normalize_color_code
@@ -29,23 +29,16 @@ class Color < ApplicationRecord
   private
 
   def valid_color_code_format
-
-    # Basic format validation
     unless color_code.match?(/\A#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/)
       errors.add(:color_code, "must be a valid hex color code (e.g., #FF0000 or #F00)")
     end
   end
 
   def normalize_color_code
-
-    # Remove any whitespace
-    self.color_code = color_code.strip
-
-    # Convert to uppercase for consistency
     self.color_code = color_code.upcase
+    self.color_code = color_code.strip.upcase if color_code.present?
 
-    # If it's a 3-digit hex, convert to 6-digit
-    if color_code.match?(/\A#[A-Fa-f0-9]{3}\z/)
+    if color_code&.match?(/\A#[A-Fa-f0-9]{3}\z/)
       self.color_code = color_code.gsub(/\A#([A-Fa-f0-9])([A-Fa-f0-9])([A-Fa-f0-9])\z/, '#\1\1\2\2\3\3')
     end
   end
