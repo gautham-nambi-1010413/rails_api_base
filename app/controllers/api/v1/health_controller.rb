@@ -11,7 +11,14 @@ module API
           response = HTTParty.get('https://api.restful-api.dev/objects')
 
           if response.code == 200
-            render json: { count: Delayed::Job.count }
+            response_data = JSON.parse(response.body)
+            first_item = response_data.first
+
+            if first_item && first_item.key?('id') && first_item.key?('name') && first_item.key?('data')
+              render json: { count: Delayed::Job.count }
+            else
+              render json: { error: 'Invalid response format' }, status: :bad_request
+            end
           else
             render json: { error: 'External API request failed' }, status: :bad_request
           end
