@@ -29,7 +29,6 @@ class Color < ApplicationRecord
   private
 
   def valid_color_code_format
-    return if color_code.blank?
 
     # Basic format validation
     unless color_code.match?(/\A#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\z/)
@@ -38,7 +37,6 @@ class Color < ApplicationRecord
   end
 
   def normalize_color_code
-    return if color_code.blank?
 
     # Remove any whitespace
     self.color_code = color_code.strip
