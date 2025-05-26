@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       resources :settings, only: [] do
         get :must_update, on: :collection
       end
+      resources :roles, only: [:index, :create]
+      resources :user_roles, only: [:create]
     end
   end
 
