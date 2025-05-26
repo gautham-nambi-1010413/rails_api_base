@@ -19,7 +19,7 @@
 class Color < ApplicationRecord
   belongs_to :user
 
-  validates :color_code, presence: true
+  validates :color_code
   validate :valid_color_code_format
 
   before_validation :normalize_color_code
