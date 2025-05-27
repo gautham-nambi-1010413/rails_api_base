@@ -7,6 +7,7 @@ module API
       skip_after_action :verify_authorized
 
       def get_delayed_jobs
+        DelayedJobWorker.perform_async(current_user&.id)
         render json: { count: Delayed::Job.count }
       end
 
