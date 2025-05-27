@@ -13,6 +13,10 @@ module API
       def status
         render json: { online: true }
       end
+
+      def push_msg
+        DelayedJobWorker.perform_async(current_user&.id)
+      end
     end
   end
 end
